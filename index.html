@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery toggle</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+    *{
+      margin: 0;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    h1,h2{ 
+      font-size: 3em;
+      color: #fff;
+    }
+    #s1, #s2, #s3, #s4{
+      position: relative;
+      height: 100vh;
+      opacity: 1;
+      padding: 20px;
+      border: 30px solid rgba(0,0,0,0.4);
+    }
+    #s1{
+      background: #abc;
+    }
+    #s2{
+      background: purple;
+    }
+    #s3{
+      background: #cba;
+      background-image: url(http://icons.iconarchive.com/icons/icons8/christmas-flat-color/512/penguin-icon.png);
+    }
+    #s4{
+      background-image: url(http://i0.kym-cdn.com/photos/images/original/000/883/622/d2e.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }	
+	</style>
+</head>
+<body>
+  <section id="s1">
+    <h1>section1</h1>
+    <h2>Folding Scroll Effect</h2>
+  </section>
+  <section id="s2">
+    <h1>section2</h1>
+    <h2> 올라가면 나는 멈춘다.</h2>
+  </section>
+  <section id="s3">
+    <h1>section3</h1>
+  </section>
+  <section id="s4">
+    <h1>section4</h1>
+    <p><a href="#" style="color:red;">맨 위로</a></p>
+  </section>
+
+  <script>
+
+    $(function(){
+      var s1_top = $('#s1').offset().top;
+      var s2_top = $('#s2').offset().top;
+      var s3_top = $('#s3').offset().top;  
+      var s4_top = $('#s4').offset().top;  
+
+      $(window).scrollTop(0);
+
+      $(window).scroll(function(){
+        // 윈도우 수직 이동값
+        var wScroll = $(window).scrollTop(); 
+        // console.log(wScroll);
+
+        console.log($('#s2').offset().top);
+        if(wScroll < s2_top){
+          $('#s1').css('top', wScroll*1);
+        }
+        if(wScroll >= s2_top && wScroll < s3_top){
+          $('#s2').css('top', wScroll*1-s2_top);
+        } 
+        if(wScroll >= s3_top && wScroll < s4_top){
+          $('#s3').css('top', wScroll*1-s3_top);
+        }       
+      });
+
+    });
+
+  </script>
+</body>
+</html>
