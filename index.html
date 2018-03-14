@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>jQuery toggle</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Folding Scroll</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <style>
     *{
       margin: 0;
       box-sizing: border-box;
       text-align: center;
     }
-    h1,h2{ 
+    h1,h2{
       font-size: 3em;
       color: #fff;
+    }
+    .wrap{
+      width: 100vw;
+      height: 100vh;
+      border:5px solid red;
+      position: relative;
+      overflow: scroll;
     }
     #s1, #s2, #s3, #s4{
       position: relative;
@@ -35,10 +44,12 @@
       background-image: url(http://i0.kym-cdn.com/photos/images/original/000/883/622/d2e.png);
       background-size: cover;
       background-repeat: no-repeat;
-    }	
-	</style>
+    }
+  </style>
 </head>
 <body>
+<!-- wrapper 추가로 스크롤시 흔들림 수정-->
+<div class="wrap">
   <section id="s1">
     <h1>section1</h1>
     <h2>Folding Scroll Effect</h2>
@@ -54,36 +65,34 @@
     <h1>section4</h1>
     <p><a href="#" style="color:red;">맨 위로</a></p>
   </section>
+</div>
+<script>
+  $(function(){
+    var s1_top = $('#s1').offset().top;
+    var s2_top = $('#s2').offset().top;
+    var s3_top = $('#s3').offset().top;
+    var s4_top = $('#s4').offset().top;
+    // console.log(s2_top,s3_top,s4_top);
+    $('.wrap').scrollTop(0);
 
-  <script>
+    $('.wrap').scroll(function(){
+      // 윈도우 수직 이동값
+      var wScroll = $('.wrap').scrollTop();
+      // console.log(wScroll);
 
-    $(function(){
-      var s1_top = $('#s1').offset().top;
-      var s2_top = $('#s2').offset().top;
-      var s3_top = $('#s3').offset().top;  
-      var s4_top = $('#s4').offset().top;  
-
-      $(window).scrollTop(0);
-
-      $(window).scroll(function(){
-        // 윈도우 수직 이동값
-        var wScroll = $(window).scrollTop(); 
-        // console.log(wScroll);
-
-        console.log($('#s2').offset().top);
-        if(wScroll < s2_top){
-          $('#s1').css('top', wScroll*1);
-        }
-        if(wScroll >= s2_top && wScroll < s3_top){
-          $('#s2').css('top', wScroll*1-s2_top);
-        } 
-        if(wScroll >= s3_top && wScroll < s4_top){
-          $('#s3').css('top', wScroll*1-s3_top);
-        }       
-      });
-
+      console.log($('#s2').offset().top);
+      if(wScroll < s2_top){
+        $('#s1').css('top', wScroll*1);
+      }
+      if(wScroll >= s2_top && wScroll < s3_top){
+        $('#s2').css('top', wScroll*1-s2_top);
+      }
+      if(wScroll >= s3_top && wScroll < s4_top){
+        $('#s3').css('top', wScroll*1-s3_top);
+      }
     });
 
-  </script>
+  });
+</script>
 </body>
 </html>
